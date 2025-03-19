@@ -7,7 +7,7 @@ fkey = os.environ.get('fxkey')
 
 @app.route('/')
 def home():
-    return render.template("index.html")
+    return render_template("index.html")
 
 @app.route('/about')
 def about():
