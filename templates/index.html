@@ -3,11 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>AI Image Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>{{ message }}</h1>
-    <p>This is the home page of the Flask application.</p>
-    <a href="/about">Go to About Page</a>
+    <div class="container">
+        <div class="input-section">
+            <h1>AI Image Generator</h1>
+            <textarea id="prompt" placeholder="Enter your image prompt..."></textarea>
+            <div class="sliders">
+                <label for="width">Width (64 - 1792):</label>
+                <input type="range" id="width" min="64" max="1792" value="1024">
+                <span id="width-value">1024</span>
+
+                <label for="height">Height (64 - 1792):</label>
+                <input type="range" id="height" min="64" max="1792" value="1024">
+                <span id="height-value">1024</span>
+            </div>
+            <input type="text" id="negative-prompt" placeholder="Enter negative prompts(Stuffs that you don't want in your image!)...">
+            <button id="generate-btn">Generate Image</button>
+        </div>
+
+        <div class="output-section">
+            <div class="image-container">
+                <img id="generated-image" src="{{ url_for('static', filename='placeholder.jpg') }}" alt="Generated Image">
+            </div>
+            <div class="output-actions">
+                <input type="text" id="image-url" readonly>
+                <button id="copy-url-btn">Copy URL</button>
+                <button id="download-btn">Download Image</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
