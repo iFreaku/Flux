@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, template
 app = Flask(__name__)
 
 
@@ -7,9 +7,8 @@ fkey = os.environ.get('fxkey')
 
 @app.route('/')
 def home():
-    return fkey
+    return render.template("index.html")
 
-# Another example route
 @app.route('/about')
 def about():
     return "This is the about page."
