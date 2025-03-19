@@ -48,7 +48,7 @@ def generate_image():
 
 @app.route('/gallery')
 def gallery():
-    logs_path = os.path.join(app.static_folder, 'logs.json')
+    logs_path = r"static/logs.json"
     try:
         with open(logs_path, 'r') as file:
             logs = json.load(file)
