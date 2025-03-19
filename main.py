@@ -10,7 +10,7 @@ client = Together(api_key=fkey)
 def home():
     return render_template('index.html')
 
-@app.route('/generate', methods=['GET'])
+@app.route('/generate', methods=['POST'])
 def generate_image():
     data = request.json
     prompt = data.get('prompt')

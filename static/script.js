@@ -33,7 +33,7 @@ document.getElementById('generate-btn').addEventListener('click', function () {
     const negativePrompt = document.getElementById('negative-prompt').value;
 
     fetch('/generate', {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
