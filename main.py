@@ -1,10 +1,23 @@
-import os
+import os, json
 from flask import Flask, render_template, request, jsonify
 from together import Together 
 
 app = Flask(__name__)
 fkey = os.environ.get('fxkey')
 client = Together(api_key=fkey)
+
+def log(prompt, text, filename="static/logs.json"):
+    data = {"prompt": prompt, "text": text}
+    try:
+        with open(filename, 'r') as file:
+            existing_data = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        existing_data = []
+    
+    existing_data.insert(0, data)
+    
+    with open(filename, 'w') as file:
+        json.dump(existing_data, file, indent=4)
 
 @app.route('/')
 def home():
@@ -28,6 +41,7 @@ def generate_image():
             negative_prompt=negative_prompt
         )
         image_url = response.data[0].url
+        log(prompt, image_url)
         return jsonify({'success': True, 'image_url': image_url})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
