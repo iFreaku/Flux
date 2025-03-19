@@ -1,4 +1,3 @@
-
 function roundToNearest16(value) {
     return Math.round(value / 16) * 16;
 }
@@ -14,10 +13,14 @@ document.getElementById('height').addEventListener('input', function () {
 });
 
 document.getElementById('generate-btn').addEventListener('click', function () {
+    const generateBtn = document.getElementById('generate-btn');
     const prompt = document.getElementById('prompt').value;
     const width = roundToNearest16(document.getElementById('width').value);
     const height = roundToNearest16(document.getElementById('height').value);
     const negativePrompt = document.getElementById('negative-prompt').value;
+
+    generateBtn.disabled = true;
+    generateBtn.textContent = 'Generating...';
 
     fetch('/generate', {
         method: 'POST',
@@ -42,5 +45,9 @@ document.getElementById('generate-btn').addEventListener('click', function () {
     })
     .catch(error => {
         alert('Error: ' + error.message);
+    })
+    .finally(() => {
+        generateBtn.disabled = false;
+        generateBtn.textContent = 'Generate Image';
     });
 });
