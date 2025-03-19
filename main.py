@@ -48,13 +48,7 @@ def generate_image():
 
 @app.route('/gallery')
 def gallery():
-    logs_path = r"static/logs.json"
-    try:
-        with open(logs_path, 'r') as file:
-            logs = json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        logs = []
-    return render_template('public.html', logs=logs)
+    return render_template('public.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
