@@ -6,8 +6,8 @@ app = Flask(__name__)
 fkey = os.environ.get('fxkey')
 client = Together(api_key=fkey)
 
-def log(prompt, text, filename="static/logs.json"):
-    data = {"prompt": prompt, "text": text}
+def log(prompt, url, filename="static/logs.json"):
+    data = {"prompt": prompt, "url": url}
     try:
         with open(filename, 'r') as file:
             existing_data = json.load(file)
