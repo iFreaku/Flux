@@ -46,5 +46,15 @@ def generate_image():
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
 
+@app.route('/gallery')
+def gallery():
+    logs_path = os.path.join(app.static_folder, 'logs.json')
+    try:
+        with open(logs_path, 'r') as file:
+            logs = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        logs = []
+    return render_template('public.html', logs=logs)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
