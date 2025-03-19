@@ -1,35 +1,22 @@
 
+function roundToNearest16(value) {
+    return Math.round(value / 16) * 16;
+}
+
 document.getElementById('width').addEventListener('input', function () {
-    document.getElementById('width-value').textContent = this.value;
+    const roundedValue = roundToNearest16(this.value);
+    document.getElementById('width-value').textContent = roundedValue;
 });
 
 document.getElementById('height').addEventListener('input', function () {
-    document.getElementById('height-value').textContent = this.value;
-});
-
-document.getElementById('copy-url-btn').addEventListener('click', function () {
-    const urlInput = document.getElementById('image-url');
-    urlInput.select();
-    document.execCommand('copy');
-    alert('URL copied to clipboard!');
-});
-
-document.getElementById('download-btn').addEventListener('click', function () {
-    const imageUrl = document.getElementById('image-url').value;
-    if (imageUrl) {
-        const link = document.createElement('a');
-        link.href = imageUrl;
-        link.download = 'generated-image.png';
-        link.click();
-    } else {
-        alert('No image URL available to download.');
-    }
+    const roundedValue = roundToNearest16(this.value);
+    document.getElementById('height-value').textContent = roundedValue;
 });
 
 document.getElementById('generate-btn').addEventListener('click', function () {
     const prompt = document.getElementById('prompt').value;
-    const width = document.getElementById('width').value;
-    const height = document.getElementById('height').value;
+    const width = roundToNearest16(document.getElementById('width').value);
+    const height = roundToNearest16(document.getElementById('height').value);
     const negativePrompt = document.getElementById('negative-prompt').value;
 
     fetch('/generate', {
